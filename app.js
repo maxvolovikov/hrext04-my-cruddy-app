@@ -7,14 +7,15 @@ $(document).ready(function() {
 /*[due date] [reminder] [payee] [amount] [payment type] [priority lever - category] [comment] [accessmethod: [url][user name][password]]*/
     let dueDate = $(".user-input-due-date").val();
     let reminder = $(".user-input-reminder").val();
-    let payee = $(".user-input-payee").val();
-    let amount = $(".user-input-amount").val();
-    let paymentType = $(".user-input-payment-type").val();
-    let category = $(".user-input-category").val();
-    let comment = $(".user-input-comment").val();
-    let payeeUrl = $(".user-input-payeeUrl").val();
-    let userName = $(".user-input-userName").val();
-    let password = $(".user-input-password").val();
+    
+    // let payee = $(".user-input-payee").val();
+    // let amount = $(".user-input-amount").val();
+    // let paymentType = $(".user-input-payment-type").val();
+    // let category = $(".user-input-category").val();
+    // let comment = $(".user-input-comment").val();
+    // let payeeUrl = $(".user-input-payeeUrl").val();
+    // let userName = $(".user-input-userName").val();
+    // let password = $(".user-input-password").val();
 
 
 
