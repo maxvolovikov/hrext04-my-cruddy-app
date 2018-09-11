@@ -2,20 +2,45 @@ $(document).ready(function() {
 
 
   $(".add-text-btn").on("click", function(){
+    //storage key as user defined bill name
+    let billStorageKey = $(".user-input-bill-name").val();
 
-    // store values
-/*[due date] [reminder] [payee] [amount] [payment type] [priority lever - category] [comment] [accessmethod: [url][user name][password]]*/
-    let dueDate = $(".user-input-due-date").val();
-    let reminder = $(".user-input-reminder").val();
+    //storage object ccomposed
+    let storageObject = {
+      dueDate : $(".user-input-due-date").val(),
+      reminder : $(".user-input-reminder").val(),
+      payee : $(".user-input-payee").val(),
+      amount : $(".user-input-amount").val(),
+      paymentType : $(".user-input-payment-type").val(),
+      category : $(".user-input-category").val(),
+      comment : $(".user-input-comment").val(),
+      payeeUrl : $(".user-input-payeeUrl").val(),
+      userName : $(".user-input-userName").val(),
+      password : $(".user-input-password").val()
+    }
+
+    //storing our bill data as a string
+    let storabgeString = JSON.stringify(storageObject);
+    //saving bill asa string to localstorage
+    localStorage.setItem(billStorageKey, storabgeString);
     
-    // let payee = $(".user-input-payee").val();
-    // let amount = $(".user-input-amount").val();
-    // let paymentType = $(".user-input-payment-type").val();
-    // let category = $(".user-input-category").val();
-    // let comment = $(".user-input-comment").val();
-    // let payeeUrl = $(".user-input-payeeUrl").val();
-    // let userName = $(".user-input-userName").val();
-    // let password = $(".user-input-password").val();
+    // clear fields
+    $(".user-input-bill-name").val("")
+    $(".user-input-due-date").val(""),
+    $(".user-input-reminder").val(""),
+    $(".user-input-payee").val(""),
+    $(".user-input-amount").val(""),
+    $(".user-input-payment-type").val(""),
+    $(".user-input-category").val(""),
+    $(".user-input-comment").val(""),
+    $(".user-input-payeeUrl").val(""),
+    $(".user-input-userName").val(""),
+    $(".user-input-password").val("")
+
+
+    console.log($(".user-input-payment-type").val())
+
+ 
 
 
 
@@ -25,20 +50,13 @@ $(document).ready(function() {
 
 
 
+    // let inputKey = $(".user-input-title").val();
+    // let inputValue = $(".user-input-body").val();
 
 
-    let inputKey = $(".user-input-title").val();
-    let inputValue = $(".user-input-body").val();
 
-    // clear values
-    $(".user-input-title").val("");
-    $(".user-input-body").val("");
 
-    console.log(inputKey, inputValue);
-
-    localStorage.setItem(inputKey, inputValue);
-
-    let itemHtml = '<div class="display-item" data-storage-key="'+inputKey+'"> ' + inputKey + ' ' +  localStorage.getItem(inputKey) + '</div>';
+    let itemHtml = '<div class="display-item" data-storage-key="'+billStorageKey+'"> ' + billStorageKey + ' ' +  localStorage.getItem(billStorageKey) + '</div>';
     $(".display").html(itemHtml);
     //console.log(localStorage);
     // how can we delegate this event to the outer html node?
