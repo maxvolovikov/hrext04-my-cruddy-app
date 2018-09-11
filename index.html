@@ -12,17 +12,77 @@
 
   </head>
   <body>
-    
+  
+  <input type="text" class="user-input-bill-name" placeholder="Bill Name">  
   <input type="date"  class="user-input-due-date" placeholder="Due Date"> 
-  <input type="checkbox" class="user-input-reminder">reminder
+  <!-- <input type="checkbox" class="user-input-reminder" checked>reminder -->
+  <select class="user-input-reminder">
+    <option value="oneWeekReminder">One Week</option>
+    <option value="twoWeeksReminder">Two Weeks</option>
+    <option value="oneMonthReminder">One Month</option>
+    <option value="noReminder">No Reminder</option>
+  </select>
   <input type="text" class="user-input-payee" placeholder="Payee">
   <input type="text" class="user-input-amount" placeholder="Amount">
-  <input type="text" class="user-input-payment-type" placeholder="Payment Type">
-  <input type="text" class="user-input-category" placeholder="Category">
+  <select class="user-input-payment-type" >
+    <option value="achPayment">Bank ACH Draft</option>
+    <option value="creditCardPayment">Payment by Credit Card</option>
+    <option value="checkPayment">Payment by Check</option>
+    <option value="cashPayment">Payment by Cash</option>
+  </select>
+<!--   <input type="text" class="user-input-category" placeholder="Category"> -->
+  <select class="user-input-category">
+    <option value="utilitiesCategory">Utilities</option>
+    <option value="foodCategory">Food</option>
+    <option value="householdCategory">Household</option>
+    <option value="entertainmentCategory">Entertainment</option>
+    <option value="businessCategory">Business/Work</option>
+    <option value="miscellaneousCategory">Miscellaneous</option>
+  </select>
+<!--   <input type="checkbox" class="user-input-payment-type">AutoPay
+  <input type="checkbox" class="user-input-payment-type">Website
+  <input type="checkbox" class="user-input-payment-type">Phone
+  <input type="checkbox" class="user-input-payment-type">check -->
 
 
-  <input type="text" class="user-input-title" placeholder="Enter the Title">
-  <textarea class="user-input-body" placeholder="Enter the body of text"></textarea>
+
+<!-- <form method="post" action="/Tests/Post">  
+        <fieldset>  
+        <legend>Payment Type</legend>  
+        <input type="checkbox" name="user-input-payment-type" value="AutoPay" onclick="return ValidatePetSelection();">Auto Payment<br>  
+        <input type="checkbox" name="user-input-payment-type" value="WebPayment" onclick="return ValidatePetSelection();">Web Payment<br>  
+        <input type="checkbox" name="user-input-payment-type" value="PaybyPhone" onclick="return ValidatePetSelection();">Payment by Phone<br>  
+        <input type="checkbox" name="user-input-payment-type" value="PayByMail" onclick="return ValidatePetSelection();">Payment by Mail<br>  
+        </fieldset>  
+</form>  -->
+
+
+<!-- <script type="text/javascript">  
+function ValidatePetSelection()  
+{  
+        var checkboxes = document.getElementsByName("user-input-payment-type");  
+        var numberOfCheckedItems = 0;  
+        for(var i = 0; i < checkboxes.length; i++)  
+        {  
+                if(checkboxes[i].checked)  
+                        numberOfCheckedItems++;  
+        }  
+        if(numberOfCheckedItems > 1)  
+        {  
+                alert("Please select only one payment type.");  
+                return false;  
+        }  
+}  
+</script> -->
+
+
+
+
+
+
+
+<!--   <input type="text" class="user-input-title" placeholder="Enter the Title">
+  <textarea class="user-input-body" placeholder="Enter the body of text"></textarea> -->
 
   <button class="add-text-btn">add text</button>
   <button class="del-text-btn">delete text</button>
