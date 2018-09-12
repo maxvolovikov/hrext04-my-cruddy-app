@@ -2,43 +2,61 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="UTF-8">
-    <title>My First CRUD App</title>
+    <title>My Bill Reminder App</title>
     <link rel="stylesheet" href="app.css">
     <script
             src="https://code.jquery.com/jquery-3.3.1.js"
             integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
             crossorigin="anonymous"></script>
     <script src="app.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="moment.js"></script>
   </head>
-  <body>
-  
-  <input type="text" class="user-input-bill-name" placeholder="Bill Name">  
-  <input type="date"  class="user-input-due-date" placeholder="Due Date"> 
-  <!-- <input type="checkbox" class="user-input-reminder" checked>reminder -->
-  <select class="user-input-reminder">
-    <option value="oneWeekReminder">One Week</option>
-    <option value="twoWeeksReminder">Two Weeks</option>
-    <option value="oneMonthReminder">One Month</option>
-    <option value="noReminder">No Reminder</option>
-  </select>
-  <input type="text" class="user-input-payee" placeholder="Payee">
-  <input type="text" class="user-input-amount" placeholder="Amount">
-  <select class="user-input-payment-type" >
-    <option value="achPayment">Bank ACH Draft</option>
-    <option value="creditCardPayment">Payment by Credit Card</option>
-    <option value="checkPayment">Payment by Check</option>
-    <option value="cashPayment">Payment by Cash</option>
-  </select>
-<!--   <input type="text" class="user-input-category" placeholder="Category"> -->
-  <select class="user-input-category">
-    <option value="utilitiesCategory">Utilities</option>
-    <option value="foodCategory">Food</option>
-    <option value="householdCategory">Household</option>
-    <option value="entertainmentCategory">Entertainment</option>
-    <option value="businessCategory">Business/Work</option>
-    <option value="miscellaneousCategory">Miscellaneous</option>
-  </select>
+  <body class="my-main-body">
+<!-- current biils dashboard -->
+    <div class="current-bill-storage">
+      <div class="pased-due-bill-storage"></div>
+      <div class="one-week-bill-storage"></div>
+      <div class="two-week-bill-storage"></div>
+      <div class="one-month-bill-storage"></div>
+    </div>
+<!-- add bill and paid bills dash -->
+    <div class="add-bill-and-paid-bill-storage">
+      <div class="add-bill-storage">
+        <input type="text" class="user-input-bill-name" placeholder="Bill Name"><br>
+        <input type="text" class="user-input-payee" placeholder="Payee"><br>
+        <input type="date"  class="user-input-due-date" placeholder="Due Date"><br>
+        <input type="text" class="user-input-amount" placeholder="Amount"><br>
+        <select class="user-input-reminder">
+          <option value="oneWeekReminder">One Week</option>
+          <option value="twoWeeksReminder">Two Weeks</option>
+          <option value="oneMonthReminder">One Month</option>
+          <option value="noReminder">No Reminder</option>
+        </select><br>
+        <select class="user-input-payment-type" >
+          <option value="achPayment">Bank ACH Draft</option>
+          <option value="creditCardPayment">Payment by Credit Card</option>
+          <option value="checkPayment">Payment by Check</option>
+          <option value="cashPayment">Payment by Cash</option>
+        </select><br>
+        <select class="user-input-category">
+          <option value="utilitiesCategory">Utilities</option>
+          <option value="foodCategory">Food</option>
+          <option value="householdCategory">Household</option>
+          <option value="entertainmentCategory">Entertainment</option>
+          <option value="businessCategory">Business/Work</option>
+          <option value="miscellaneousCategory">Miscellaneous</option>
+        </select><br>
+        <button class="add-text-btn">add text</button>
+        <button class="del-text-btn">delete text</button>
+      </div>
+      <div class="paid-bill-storage"></div>
+    </div>
+
+
+
+
+
 <!--   <input type="checkbox" class="user-input-payment-type">AutoPay
   <input type="checkbox" class="user-input-payment-type">Website
   <input type="checkbox" class="user-input-payment-type">Phone
@@ -46,33 +64,33 @@
 
 
 
-<!-- <form method="post" action="/Tests/Post">  
-        <fieldset>  
-        <legend>Payment Type</legend>  
-        <input type="checkbox" name="user-input-payment-type" value="AutoPay" onclick="return ValidatePetSelection();">Auto Payment<br>  
-        <input type="checkbox" name="user-input-payment-type" value="WebPayment" onclick="return ValidatePetSelection();">Web Payment<br>  
-        <input type="checkbox" name="user-input-payment-type" value="PaybyPhone" onclick="return ValidatePetSelection();">Payment by Phone<br>  
-        <input type="checkbox" name="user-input-payment-type" value="PayByMail" onclick="return ValidatePetSelection();">Payment by Mail<br>  
-        </fieldset>  
+<!-- <form method="post" action="/Tests/Post">
+        <fieldset>
+        <legend>Payment Type</legend>
+        <input type="checkbox" name="user-input-payment-type" value="AutoPay" onclick="return ValidatePetSelection();">Auto Payment<br>
+        <input type="checkbox" name="user-input-payment-type" value="WebPayment" onclick="return ValidatePetSelection();">Web Payment<br>
+        <input type="checkbox" name="user-input-payment-type" value="PaybyPhone" onclick="return ValidatePetSelection();">Payment by Phone<br>
+        <input type="checkbox" name="user-input-payment-type" value="PayByMail" onclick="return ValidatePetSelection();">Payment by Mail<br>
+        </fieldset>
 </form>  -->
 
 
-<!-- <script type="text/javascript">  
-function ValidatePetSelection()  
-{  
-        var checkboxes = document.getElementsByName("user-input-payment-type");  
-        var numberOfCheckedItems = 0;  
-        for(var i = 0; i < checkboxes.length; i++)  
-        {  
-                if(checkboxes[i].checked)  
-                        numberOfCheckedItems++;  
-        }  
-        if(numberOfCheckedItems > 1)  
-        {  
-                alert("Please select only one payment type.");  
-                return false;  
-        }  
-}  
+<!-- <script type="text/javascript">
+function ValidatePetSelection()
+{
+        var checkboxes = document.getElementsByName("user-input-payment-type");
+        var numberOfCheckedItems = 0;
+        for(var i = 0; i < checkboxes.length; i++)
+        {
+                if(checkboxes[i].checked)
+                        numberOfCheckedItems++;
+        }
+        if(numberOfCheckedItems > 1)
+        {
+                alert("Please select only one payment type.");
+                return false;
+        }
+}
 </script> -->
 
 
@@ -84,9 +102,5 @@ function ValidatePetSelection()
 <!--   <input type="text" class="user-input-title" placeholder="Enter the Title">
   <textarea class="user-input-body" placeholder="Enter the body of text"></textarea> -->
 
-  <button class="add-text-btn">add text</button>
-  <button class="del-text-btn">delete text</button>
-
-  <div class="display"></div>
   </body>
 </html>

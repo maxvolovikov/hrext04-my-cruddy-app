@@ -79,11 +79,11 @@ bill organizer app
     (4) Fun stuff
     (8) auto-complete when searching/filtering
 
-<!-- 
-Bills: 
+<!--
+Bills:
 
 [due date] [reminder] [company] [amount] [payment type] [priority lever - category] [comment] [accessmethod: [url][user name][password]]
-   must        option    must      must     option        option                      option    option         
+   must        option    must      must     option        option                      option    option
 
 
  -->
