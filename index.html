@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
   <head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
     <meta charset="UTF-8">
     <title>My Bill Reminder App</title>
     <link rel="stylesheet" href="app.css">
@@ -12,52 +19,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script src="moment.js"></script>
   </head>
-  <header class="main-header">BillsOnTime</header>
+  <header class="main-header">BillDashboard</header>
   <body class="my-main-body">
-<!-- current biils dashboard -->
-    <div class="current-bill-storage">
-      <div class="past-due-bill-storage">
-        <div class="past-due-bill-storage-total"></div>
-      </div>
-      <div class="one-week-bill-storage">
-        <div class="one-week-bill-storage-total"></div>
-      </div>
-      <div class="two-week-bill-storage">
-        <div class="two-week-bill-storage-total"></div>
-      </div>
-      <div class="one-month-bill-storage">
-        <div class="one-month-bill-storage-total"></div>
-      </div>
-      <div class="over-one-month-bill-storage">
-        <div class="over-one-month-bill-storage-total"></div>
-      </div>
-    </div>
-<!-- add bill and paid bills dash -->
-    <div class="add-bill-and-paid-bill-storage">
 
-      <!--         add bill button -->
-      <button id="myBtn" class="add-new-bill-btn">Add New Bill</button>
-      <button class="refresh-btn">Refresh Bills</button>
-      <div class="paid-bill-storage"></div>
-    </div>
-
-<!-- The new bill window -->
-<div id="myModal" class="modal">
-
-  <!-- enter bill content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <span class="close">&times;</span>
-      <h2>Add new bill</h2>
-    </div>
+    <div class="topBox">
       <div class="add-bill-storage">
-        <div class="add-bill-storage-line1">
           <form action="/action_page.php" class="bill-form">
             Payment Name:  <input type="text" class="user-input-bill-name" required>
                Payee:  <input type="text" class="user-input-payee" required>
                Due Date:  <input type="date"  class="user-input-due-date" required>
                Amount:  <input type="number" class="user-input-amount" required >
-               Comment:  <textarea> </textarea><br><br><br>
+      <br><br><br>
             Remind me in:  <select class="user-input-reminder">
               <option value="noReminder">No Reminder</option>
               <option value="oneWeekReminder">One Week</option>
@@ -86,18 +58,43 @@
             </select>
           </form>
         </div>
-        <div class="add-bill-storage-line2"> <br></div>
+        <div class="commentBox">
+             <textarea placeholder="Additional comments.." rows="6" class="user-input-comment" ></textarea>
+        </div>
       </div>
-
-      <div class="modal-footer">
-
-        <h2></h2>When complete please click    </h2>
-        <button class="add-text-btn">Submit</button>
-
+      <div class="buttonBox">
+        <!--         add bill button -->
+        <button id="myBtn" class="add-new-bill-btn">Add / Modify</button>
+<!--         <button id="modify-btn" class="modify-bill-btn">Modify</button> -->
+        <button class="refresh-btn">Refresh</button>
+        <button type="button" class="delete-btn ">
+          <span class="glyphicon glyphicon-trash"></span> Delete
+        </button>
+        <button class="pay-btn">Pay</button>
       </div>
-
-  </div>
-
+    </div>
+<!-- current biils dashboard -->
+    <div class="current-bill-storage">
+      <div class="past-due-bill-storage">
+        <div class="past-due-bill-storage-total"></div>
+      </div>
+      <div class="one-week-bill-storage">
+        <div class="one-week-bill-storage-total"></div>
+      </div>
+      <div class="two-week-bill-storage">
+        <div class="two-week-bill-storage-total"></div>
+      </div>
+      <div class="one-month-bill-storage">
+        <div class="one-month-bill-storage-total"></div>
+      </div>
+      <div class="over-one-month-bill-storage">
+        <div class="over-one-month-bill-storage-total"></div>
+      </div>
+    </div>
+<!-- add bill and paid bills dash -->
+    <div class="add-bill-and-paid-bill-storage">
+      <div class="paid-bill-storage"></div>
+    </div>
 </div>
   </body>
 </html>

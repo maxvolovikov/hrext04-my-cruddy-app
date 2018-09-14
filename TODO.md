@@ -56,9 +56,9 @@ bill organizer app
 *    (2) highlight certain items
 *    (2) mouse over to see details
     (3) ability to select and delete multiple items (checkbox?)
-*    (3) add status/priorty and allow for sorting based on status/priority
-*    (1) Item categories
-*    (1) ability to add/leave comments on item
+√*    (3) add status/priorty and allow for sorting based on status/priority
+√*    (1) Item categories
+√*    (1) ability to add/leave comments on item
 ?    (7) upload files/images
 ?    (6) share item
     (9) drag and drop to arrange
@@ -71,7 +71,7 @@ bill organizer app
 ?    (5) Panic Button
 *    (4) Highlight based on status/priority/due date
 *    (5) options page (ability to set/toggle options)
-*    (4) show deleted items and allow for undelete
+√*    (4) show deleted items and allow for undelete
     (6) pagination (if more than 10 show a next button)
     (6) category pages (not really pages, just a show/hide trick)
     (2) strike-through completed/deleted items (styling)
@@ -79,13 +79,6 @@ bill organizer app
     (4) Fun stuff
     (8) auto-complete when searching/filtering
 
-<!--
-Bills:
 
-[due date] [reminder] [company] [amount] [payment type] [priority lever - category] [comment] [accessmethod: [url][user name][password]]
-   must        option    must      must     option        option                      option    option
-
-
- -->
 
 

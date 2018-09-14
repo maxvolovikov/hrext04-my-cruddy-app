@@ -1,15 +1,19 @@
 $(document).ready(function() {
+  var pastDueTracker = 0;
 
+  $(".add-new-bill-btn").on("click", function(){
+    //remove old record
+    let billName = $(".user-input-bill-name").val();
+    localStorage.removeItem(billName);
 
-  $(".add-text-btn").on("click", function(){
-//entries validation
+    //entries validation
     let billStorageKey = $(".user-input-bill-name").val();
     if ($(".user-input-bill-name").val() === ""){alert('Please enter the Payment Name!'); return false;}
     if ($(".user-input-payee").val() === ""){alert('Please enter a Payee!'); return false;}
+    if ($(".user-input-payee").val() === "corgi"){alert('You silly! You cant pay corgis in money they only accept treats and belly rubs!!!'); return false;}
     if ($(".user-input-due-date").val() === ""){alert('Please enter the Due Date!'); return false;}
     if ($(".user-input-amount").val() === ""){alert('Please enter the Amount'); return false;}
-    if ($(".user-input-amount").val() === "corgi"){alert('Corgi is too much of a payment please consier selling your kidney instead!'); return false;}
-    // if (typeof ($(".user-input-amount").val()) !== 'number'){alert('Please a valid number in the Amount fields!'); return false;}
+
     //storage key as user defined bill name
     //storage object ccomposed
     let storageObject = {
@@ -20,9 +24,11 @@ $(document).ready(function() {
       dueDate : $(".user-input-due-date").val(),
       amount : $(".user-input-amount").val(),
       reminder : $(".user-input-reminder").val(),
-      payee : $(".user-input-payee").val(),
       paymentType : $(".user-input-payment-type").val(),
       category : $(".user-input-category").val(),
+      recurring: $(".user-input-recurring").val(),
+      paidOn: false,
+      comment: $(".user-input-comment").val()
     }
 
     //storing our bill data as a string
@@ -31,107 +37,107 @@ $(document).ready(function() {
     localStorage.setItem(billStorageKey, storabgeString);
 
     // clear fields
-    $(".user-input-bill-name").val("")
-    $(".user-input-due-date").val(""),
-    $(".user-input-reminder").val(""),
-    $(".user-input-payee").val(""),
-    $(".user-input-amount").val(""),
-    $(".user-input-payment-type").val(""),
-    $(".user-input-category").val("")
-    // $(".user-input-comment").val(""),
-    // $(".user-input-payeeUrl").val(""),
-    // $(".user-input-userName").val(""),
-    // $(".user-input-password").val("")
-
-    // let inputKey = $(".user-input-title").val();
-    // let inputValue = $(".user-input-body").val();
-
-// let displayObj = JSON.parse(localStorage.getItem(billStorageKey));
-// console.log(displayObj.dueDate)
-
-
-//     if (JSON.parse(localStorage.getItem(billStorageKey)).dueDate <= new Date){
-//       let itemHtml = '<div class="display-item" data-storage-key="'+billStorageKey+'"> ' + billStorageKey + ' ' +  localStorage.getItem(billStorageKey) + '</div>';
-//       $(".past-due-bill-storage").html(itemHtml);
-//     }
-//     if (JSON.parse(localStorage.getItem(billStorageKey)).dueDate + 7 <= new Date){
-//       let itemHtml = '<div class="display-item" data-storage-key="'+billStorageKey+'"> ' + billStorageKey + ' ' +  localStorage.getItem(billStorageKey) + '</div>';
-//       $(".one-week-bill-storage").html(itemHtml);
-//     }
-    //console.log(localStorage);
-    // how can we delegate this event to the outer html node?
-    // https://learn.jquery.com/events/event-delegation/
-
-
+    clearInputFields();
     refreshBills();
   });
 
+  //div click functionality that lets edit / pay the bill
+  $(document).on("click", ".entered-bill", function(e){
+    window.scrollTo(0, -10000000);
+      clearInputFields();
+      let refStr = localStorage.getItem(e.target.dataset.storageKey);
+      let refObj = JSON.parse(refStr);
+      //get the values
+      let billPaid = refObj.billPaid;
+      let billName = refObj.billName;
+      let payee = refObj.payee;
+      let dueDate = refObj.dueDate;
+      let amount = refObj.amount;
+      let reminder = refObj.reminder;
+      let paymentType = refObj.paymentType;
+      let category = refObj.category;
+      let recurring = refObj.recurring;
+      let comment = refObj.comment
 
+      $(".billPaid").val(billPaid)
+      $(".user-input-bill-name").val(billName),
+      $(".user-input-payee").val(payee),
+      $(".user-input-due-date").val(dueDate),
+      $(".user-input-amount").val(amount),
+      $(".user-input-reminder").val(reminder),
+      $(".user-input-payment-type").val(paymentType),
+      $(".user-input-category").val(category),
+      $(".user-input-recurring").val(recurring),
+      $(".user-input-comment").val(comment)
+  });
 
-
-// Attach a delegated event handler
-// $( ".paid-bill-storage" ).on( "click", "div", function( event ) {
-//     event.preventDefault();
-//     alert('!')
-
-// });
-
-    $(".paid-bill-storage").on("click", ".entered-bill", function(e){
-      // plop the key:value back into the input boxes
-
-      // get the values from the the divs?
-      console.log("key=> ", e.target.dataset.storageKey); // user-input-title
-      localStorage.getItem(e.target.dataset.storageKey); // user-input-body
-
-      // set those values in the form fields
-      $(".user-input-bill-name").val("")
-      $(".user-input-due-date").val(""),
-      $(".user-input-reminder").val(""),
-      $(".user-input-payee").val(""),
-      $(".user-input-amount").val(""),
-      $(".user-input-payment-type").val(""),
-      $(".user-input-category").val("")
-
-
-
-
-      $(".user-input-title").val(e.target.dataset.storageKey);
-      $(".user-input-body").val(localStorage.getItem(e.target.dataset.storageKey));
-    });
-
-
-
-   // TODO add back in later
-   // $(".user-input").on("keyup", function(){
-   //   let inputValue = $(".user-input").val();
-   //   localStorage.setItem("testStorage", inputValue);
-   //   $(".display").text(localStorage.getItem("testStorage"));
-   // });
-
-     // localStorage.removeItem( $('.user-input-title').val() ); // grab the title and plop here
-     // confirm('Would you like to delte this bill?');
+  //trash icon func
+  $(document).on("click", ".delete-btn", function(e){
+      //delete confirmation
+      confirm('Are you sure you want to delete this item?')
+      let billName = $(".user-input-bill-name").val();
+      let billPaid = JSON.parse(localStorage.getItem(billName)).billPaid
+      if (billPaid == false){
+        //unpaid bill second confirmation
+        confirm('Are you absolutely sure you want to delete this bill? It looks like it has not been paid yet!')
+      }
+      localStorage.removeItem(billName);
+    refreshBills();
+  });
 
 //refresh btn functionality
    $(".refresh-btn").on("click", function() {
       refreshBills();
    });
 
+//pay-btn func
+$(".pay-btn").on("click", function(){
+  confirm('Are you sure you paid this bill?');
+    let billStorageKey = $(".user-input-bill-name").val();
+    if ($(".user-input-bill-name").val() === ""){alert('Please enter the Payment Name!'); return false;}
+    if ($(".user-input-payee").val() === ""){alert('Please enter a Payee!'); return false;}
+    if ($(".user-input-due-date").val() === ""){alert('Please enter the Due Date!'); return false;}
+    if ($(".user-input-amount").val() === ""){alert('Please enter the Amount'); return false;}
+    if ($(".user-input-amount").val() === "corgi"){alert('Corgi is too much of a payment please consier selling your kidney instead!'); return false;}
+    //storage key as user defined bill name
+    //storage object ccomposed
+    let storageObject = {
+      defineBill: true,
+      billPaid: true,
+      billName : $(".user-input-bill-name").val(),
+      payee : $(".user-input-payee").val(),
+      dueDate : $(".user-input-due-date").val(),
+      amount : $(".user-input-amount").val(),
+      reminder : $(".user-input-reminder").val(),
+      paymentType : $(".user-input-payment-type").val(),
+      category : $(".user-input-category").val(),
+      recurring: $(".user-input-recurring").val(),
+      paidOn: moment(new Date).format('MMMM Do YYYY'),
+      comment: $(".user-input-comment").val()
+    }
+
+    //storing our bill data as a string
+    let storabgeString = JSON.stringify(storageObject);
+    //saving bill asa string to localstorage
+    localStorage.setItem(billStorageKey, storabgeString);
+
+    // clear fields
+    clearInputFields();
+    refreshBills();
+});
+
 //refresh of current bills(and paid?)
 
   var refreshBills =function(){
     //cur bill div reset
-    $(".past-due-bill-storage").html("")
-    $(".one-week-bill-storage").html("")
-    $(".two-week-bill-storage").html("")
-    $(".one-month-bill-storage").html("")
-    $(".over-one-month-bill-storage").html("")
-    $(".paid-bill-storage").html("")
+    clearStorageBoxes();
     //total counters
     var counterPD = 0;
     var counter7 = 0;
     var counter14 = 0;
     var counter30 = 0;
     var counterOther = 0;
+    var counterPaid = 0;
 
     for (let i = 0; i < localStorage.length; i++){
       let refStr = localStorage.getItem(localStorage.key(i));
@@ -143,7 +149,7 @@ $(document).ready(function() {
       let curDueDate = refObj.dueDate;
       let curPayee = refObj.payee;
       let billPaid = refObj.billPaid;
-      let todayDate = moment(new Date).endOf('hour').fromNow();
+      let paidOn = refObj.paidOn;
 
         if(billId === true){
 
@@ -184,17 +190,20 @@ $(document).ready(function() {
             }
           }
           if (billPaid === true){
-            let billDisplay = `<div id="my-entered-bill" class="entered-bill" data-storage-key="${curName}"> Your ${curName} was paid to ${curPayee} in the following amount: ${dollarConverter(curDue)}  </div>`
+            let billDisplay = `<div id="my-entered-bill" class="entered-bill" data-storage-key="${curName}"> Your ${curName} was paid to ${curPayee} on ${paidOn} in the following amount: ${dollarConverter(curDue)}  </div>`
               $(".paid-bill-storage").append(billDisplay);
+              counterPaid += toNum(curDue)
           }
         }
 
     }
+      pastDueTracker =  counterPD;
       $(".past-due-bill-storage").prepend(`<div class="section-total">Total Past Due: ${dollarConverter(counterPD)}<br></div>`);
       $(".one-week-bill-storage").prepend(`<div class="section-total">Total Due in 7 Days: ${dollarConverter(counter7)}<br></div>`);
       $(".two-week-bill-storage").prepend(`<div class="section-total">Total Due in 14 Days: ${dollarConverter(counter14)}<br></div>`);
       $(".one-month-bill-storage").prepend(`<div class="section-total">Total Due in 30 Days: ${dollarConverter(counter30)}<br></div>`);
       $(".over-one-month-bill-storage").prepend(`<div class="section-total">Total Due in over 30 Days: ${dollarConverter(counterOther)}<br></div>`);
+      $(".paid-bill-storage").prepend(`<div class="section-total">Total Paid Recently: ${dollarConverter(counterPaid)}<br></div>`);
   }
 
 //convert to number
@@ -205,45 +214,35 @@ var toNum = function(x){
 var dollarConverter = function(x){
   return '$' + Number.parseFloat(x).toFixed(2);
 }
-   // iterative approach to adding items
-   // store data as stringified array of objects
-   // store data with individual keys
-  // how do we get keys? research Object.keys
 
-
-//new bill pop up window
-
-
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal
-btn.onclick = function() {
-    modal.style.display = "block";
+var clearStorageBoxes = function(){
+    //cur bill div reset
+    $(".past-due-bill-storage").html("")
+    $(".one-week-bill-storage").html("")
+    $(".two-week-bill-storage").html("")
+    $(".one-month-bill-storage").html("")
+    $(".over-one-month-bill-storage").html("")
+    $(".paid-bill-storage").html("")
 }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
+var clearInputFields = function(){
+    // clear fields
+    $(".user-input-bill-name").val("")
+    $(".user-input-due-date").val(""),
+    $(".user-input-reminder").val(""),
+    $(".user-input-payee").val(""),
+    $(".user-input-amount").val(""),
+    $(".user-input-payment-type").val(""),
+    $(".user-input-category").val(""),
+    $(".user-input-comment").val(""),
+    $(".user-input-recurring").val("")
 }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+refreshBills();
 
-
-
-
-
+  if (pastDueTracker !== 0){
+    alert (`The following amount is past due: ${dollarConverter(pastDueTracker)}`);
+  }
 
 
 
