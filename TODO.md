@@ -48,11 +48,11 @@
 bill organizer app
 
 
-*    (5) add due date
-*    (7) time stamps (moment.js)
-*    (5) format the display of the items in a list (need to add more detail)
+√*    (5) add due date
+√*    (7) time stamps (moment.js)
+√*    (5) format the display of the items in a list (need to add more detail)
 *    (??) fix the layout
-*    (7) color coded priority
+√*    (7) color coded priority
 *    (2) highlight certain items
 *    (2) mouse over to see details
     (3) ability to select and delete multiple items (checkbox?)
